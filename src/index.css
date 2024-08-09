@@ -12,13 +12,19 @@
    justify-content: center;
    flex-direction: column;
 }
-.card-text{
+.card_text{
   color: black;
   font-weight: 900;
   font-size: 1.4rem;
 }
-.card-title{
+.card_title{
   color: black;
   font-weight: 900;
   font-size: 18px;
+}
+.products_image{
+  height: 250px;
+}
+.products_card{
+  height: 300px;
 }
