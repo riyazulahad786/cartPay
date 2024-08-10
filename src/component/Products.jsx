@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 function Products() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState([]);
   useEffect(() => {
     const getProducts = async () => {
       await axios
@@ -13,6 +13,8 @@ function Products() {
         .then((res) => {
           console.log(res);
           setData(res.data);
+          setFilter(res.data);
+
           setLoading(false);
         })
         .catch((err) => {
@@ -40,30 +42,32 @@ function Products() {
          </>
     )
   };
+  const filterProducts = (cat) => {
+     const updatedList = data.filter((i)=>i.category === cat)
+     setFilter(updatedList)
+  }
   const ShowProducts = () => {
     return (
       <>
         <div className="container">
           <div className="row">
-            <div className="col-lg-12 d-flex justify-content-center mt-3 gap-2">
-              <button className="btn btn-outline-dark">All</button>
-              <button className="btn btn-outline-dark">Mens Wear</button>
-              <button className="btn btn-outline-dark">Women Wear</button>
-              <button className="btn btn-outline-dark">Jewellerys</button>
-              <button className="btn btn-outline-dark">Electronic Gadgets</button>
+          <div className="col-lg-12 d-flex justify-content-center mt-3 gap-2">
+                <button className="btn btn-outline-dark" onClick={() => setFilter(data)}>All</button>
+                <button className="btn btn-outline-dark" onClick={() => filterProducts('men\'s clothing')}>Mens Wear</button>
+                <button className="btn btn-outline-dark" onClick={() => filterProducts("women's clothing")}>Women Wear</button>
+                <button className="btn btn-outline-dark" onClick={() => filterProducts('jewelery')}>Jewellerys</button>
+                <button className="btn btn-outline-dark" onClick={() => filterProducts('electronics')}>Electronic Gadgets</button>
             </div>
           </div>
           <div className="row">
-            {data.map((item,i)=>(
+            {filter.map((item,i)=>(
               <>
-              <div className="col-lg-3 text-center">
-              <div className="card  shadow p-3" key={i}>
+              <div className="col-lg-3 text-center mt-3">
+              <div className="card  shadow p-3" key={i.id}>
                 <img src={item.image} className="card-img-top products_image" alt="..." />
                 <div className="card-body">
                   <h5 className="card-title">{item.title.substring(0,12)}</h5>
-                  {/* <p className="card-text">
-                {item.description.slice(0,70)}...
-                  </p> */}
+              
                   <div className="d-flex justify-content-between">
                     <p  className=" lead">{item.rating.rate}</p>
                     <p className="fw-bold lead">$ {item.price}</p>
