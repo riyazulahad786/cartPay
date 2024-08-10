@@ -2,8 +2,10 @@
 import { IoLogInOutline } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { BsFillCartCheckFill } from "react-icons/bs";
-
+import { useSelector } from "react-redux";
 function Navbar() {
+  const {cart} = useSelector((state)=> state.app)
+  console.log(cart,"cart")
   return (
     <div>
         <nav className="navbar navbar-expand-lg py-3 shadow top-fixed ">
@@ -35,7 +37,9 @@ function Navbar() {
         <button className="btn btn-info me-1"> <FaUser/> Register</button>
       </div>
       <div className="d-flex justify-content-center align-items-center">
-        <button className="btn btn-dark me-1"> <BsFillCartCheckFill/> Cart(0)</button>
+        <button className="btn btn-dark me-1"> <BsFillCartCheckFill/> Cart ({cart[0]?.
+quantity
+})</button>
       </div>
     </div>
   </div>

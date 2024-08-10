@@ -2,10 +2,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useDispatch } from 'react-redux';
+import { addToCart } from "../feature/productSlice";
+
 function Products() {
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState([]);
+  // const { Data, loader, filters } = useSelector((state) => state.app);
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
   useEffect(() => {
     const getProducts = async () => {
       await axios
@@ -72,7 +80,7 @@ function Products() {
                     <p  className=" lead">{item.rating.rate}</p>
                     <p className="fw-bold lead">$ {item.price}</p>
                   </div>
-                  <a href={`/products/${item.id}`} className="btn btn-success">
+                  <a href={`/products/${item.id}`} className="btn btn-success" onClick={() => handleAddToCart(item)}>
                      Add to cart
                   </a>
                 </div>

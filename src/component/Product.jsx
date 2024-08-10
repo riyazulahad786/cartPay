@@ -3,18 +3,21 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-// import {useDispatch } from 'react-redux';
-// import { addCart } from '../redux/action';
-// import { delCart } from '../redux/action';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../feature/productSlice';
+
+
 function Product() {
+  const dispatch = useDispatch();
     const {id} = useParams();
     const [products, setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
-    // const dispatch = useDispatch();
+    // const { cart } = useSelector((state) => state.app);
 
-    // const addProducts = (productItem) =>{
-    //    dispatch(addCart(productItem))
-    // }
+ const handleAddToCart  = () =>{
+   dispatch(addToCart(products))
+ }
+
     useEffect(()=>{
         const getProducts = async ()=> {
            await axios.get(`https://fakestoreapi.com/products/${id}`).then((res)=>{
@@ -68,7 +71,7 @@ function Product() {
                     <p className='fw-bolder lead fs-1'>$ {products.price}</p>
                  </div>
                  <div className=''>
-                    <button className='btn btn-outline-dark mx-2'>Add to Cart</button>
+                    <button className='btn btn-outline-dark mx-2' onClick={handleAddToCart}>Add to Cart</button>
                     <button className='btn btn-outline-dark mx-2'>Go to Cart</button>
                  </div>
              </div>
@@ -81,22 +84,7 @@ function Product() {
         {
             loading ? <Loading/> : <ProductView/>
         }
-           {/* {
-            products.map((item,i)=>(
-                <>
-                    <div className='col-lg-3'>
-                        <div className='card' key={i}>
-                            <div className='card-body'>
-                               <img src={item.image} className='img-fluid'/>
-                               <div>
-                                  <h6>{item.title}</h6>
-                               </div>
-                            </div>
-                        </div>
-                    </div>
-                </>
-            ))
-           } */}
+          
         </div>
     </div>
   )
