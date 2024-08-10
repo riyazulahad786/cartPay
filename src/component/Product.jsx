@@ -3,10 +3,18 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+// import {useDispatch } from 'react-redux';
+// import { addCart } from '../redux/action';
+// import { delCart } from '../redux/action';
 function Product() {
     const {id} = useParams();
     const [products, setProducts] = useState([]);
     const [loading,setLoading] = useState(true);
+    // const dispatch = useDispatch();
+
+    // const addProducts = (productItem) =>{
+    //    dispatch(addCart(productItem))
+    // }
     useEffect(()=>{
         const getProducts = async ()=> {
            await axios.get(`https://fakestoreapi.com/products/${id}`).then((res)=>{
