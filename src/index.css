@@ -28,3 +28,6 @@
 .products_card{
   height: 300px;
 }
+.product_view_image{
+  height: 400px !important;
+}

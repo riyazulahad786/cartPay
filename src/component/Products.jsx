@@ -72,8 +72,8 @@ function Products() {
                     <p  className=" lead">{item.rating.rate}</p>
                     <p className="fw-bold lead">$ {item.price}</p>
                   </div>
-                  <a href="#" className="btn btn-success">
-                Add to cart
+                  <a href={`/products/${item.id}`} className="btn btn-success">
+                     Add to cart
                   </a>
                 </div>
                 </div>
